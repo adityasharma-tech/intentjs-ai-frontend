@@ -1,4 +1,5 @@
 "use client";
+import ChatList from "@/components/chat-list";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { PlaceholdersAndVanishTextArea } from "@/components/ui/placeholders-and-vanish-textarea";
 import axios from "axios";
@@ -73,19 +74,9 @@ export default function Home() {
     );
   } else {
     return (
-      <main className="h-[calc(92vh+6px)] md:h-[calc(87vh)] flex flex-col py-5 md:py-10 md:px-20 px-5">
-        <div className="flex-grow">
-          <div className="flex flex-grow flex-col gap-y-2 w-full">
-            {chat.map((c, i) => {
-              return (
-                <div key={i} className="text-white">
-                  {c}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div>
+      <main className="h-[calc(92vh+6px)] md:h-[calc(92vh)] flex flex-col">
+        <ChatList chats={chat} />
+        <div className="py-4">
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
             onChange={(e) => setMessage(e.target.value)}

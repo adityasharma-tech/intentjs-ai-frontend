@@ -2,18 +2,18 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 md:px-10 px-3 bg-black/50 backdrop-blur md:py-10 py-3 flex justify-between">
+    <header className="sticky top-0 md:px-10 px-3 bg-black/50 backdrop-blur md:py-2 py-3 flex justify-between">
         <div className='flex flex-col justify-center'>
           <span className="text-2xl">IntentJS AI</span>
         </div>
         <div>
-          <button className="inline-flex h-12 animate-shimmer group gap-x-5 items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-neutral-200 transition-colors focus:outline-none focus:ring-none focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-            <span>Support</span>
+          <button className="inline-flex h-10 animate-shimmer group gap-x-2 items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-neutral-200 transition-colors focus:outline-none focus:ring-none focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            <span className='text-sm'>Support</span>
             <div className="border-l h-6 my-auto border-neutral-500" />
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width={30}
-              height={30}
+              width={20}
+              height={20}
               fill="none"
               viewBox="0 0 24 24"
               className="group-hover:bg-neutral-700 py-0.5 rounded-md transition"
