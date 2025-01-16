@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 px-10 py-10 flex justify-between">
-        <div>
+    <header className="sticky top-0 md:px-10 px-3 bg-black/50 backdrop-blur md:py-10 py-3 flex justify-between">
+        <div className='flex flex-col justify-center'>
           <span className="text-2xl">IntentJS AI</span>
         </div>
         <div>

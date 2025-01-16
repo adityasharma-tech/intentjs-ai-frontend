@@ -4,13 +4,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-export function PlaceholdersAndVanishInput({
+export function PlaceholdersAndVanishTextArea({
   placeholders,
   onChange,
   onSubmit,
 }: {
   placeholders: string[];
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
@@ -44,7 +44,7 @@ export function PlaceholdersAndVanishInput({
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const newDataRef = useRef<any[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState("");
   const [animating, setAnimating] = useState(false);
 
@@ -149,9 +149,11 @@ export function PlaceholdersAndVanishInput({
     animateFrame(start);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !animating) {
       vanishAndSubmit();
+      // @ts-ignore
+      onSubmit && onSubmit(e);
     }
   };
 
@@ -177,19 +179,19 @@ export function PlaceholdersAndVanishInput({
   return (
     <form
       className={cn(
-        "w-full relative max-w-xl mx-auto bg-white dark:bg-neutral-900/90 border-neutral-800/50 placeholder-neutral-500 h-12 rounded-lg overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200",
-        value && "bg-gray-50"
+        "py-3 sm:py-4 md:py-6 pb-28 sm:pb-32 relative rounded-xl sm:rounded-2xl bg-neutral-900/90 backdrop-blur-sm border border-neutral-800/50 text-base sm:text-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-800/50 focus:border-neutral-800/50 transition-all duration-200 ease-in-out w-full h-full",
+        value && "bg-neutral-900"
       )}
       onSubmit={handleSubmit}
     >
       <canvas
         className={cn(
-          "absolute pointer-events-none  text-base transform scale-50 top-[20%] left-2 sm:left-8 origin-top-left filter invert dark:invert-0 pr-20",
+          "absolute pointer-events-none  text-base transform scale-50 top-[20%] left-5 sm:left-8 origin-top-left filter invert dark:invert-0 pr-20",
           !animating ? "opacity-0" : "opacity-100"
         )}
         ref={canvasRef}
       />
-      <input
+      <textarea
         onChange={(e) => {
           if (!animating) {
             setValue(e.target.value);
@@ -199,9 +201,8 @@ export function PlaceholdersAndVanishInput({
         onKeyDown={handleKeyDown}
         ref={inputRef}
         value={value}
-        type="text"
         className={cn(
-          "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20",
+          "w-full relative text-sm sm:text-base z-50 border-none resize-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20 pt-5",
           animating && "text-transparent dark:text-transparent"
         )}
       />
@@ -209,8 +210,9 @@ export function PlaceholdersAndVanishInput({
       <button
         disabled={!value}
         type="submit"
-        className="absolute right-2 top-1/2 z-50 -translate-y-1/2 h-8 w-8 rounded-full disabled:bg-gray-100 bg-black dark:bg-zinc-900 dark:disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"
+        className="absolute right-4 bottom-4 z-50 px-3 py-2 rounded-xl ring-4 ring-main/50 bg-main/10 disabled:ring-2 disabled:opacity-50 disabled:border-white/10 border-neutral-800 border dark:disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"
       >
+        <span className="text-sm">Submit</span>
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -243,7 +245,7 @@ export function PlaceholdersAndVanishInput({
         </motion.svg>
       </button>
 
-      <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
+      <div className="absolute top-11 -left-1 flex items-center rounded-full pointer-events-none">
         <AnimatePresence mode="wait">
           {!value && (
             <motion.p
