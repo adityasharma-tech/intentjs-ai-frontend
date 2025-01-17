@@ -35,6 +35,19 @@ export default function ChatList({ chats }: { chats: {
         padding-top: 5px;
         padding-bottom: 5px;
         }
+        p {
+          padding-bottom: 5px;
+        }
+          ul {
+           padding-left: 10px;
+           padding-right: 10px;
+          }
+
+          ul li {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 14px
+          }
         `}
       </style>
       <div className="flex flex-col gap-y-5">
