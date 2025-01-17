@@ -15,7 +15,10 @@ export default function Home() {
   ];
 
   const [message, setMessage] = React.useState("");
-  const [chat, setChat] = React.useState<string[]>([]);
+  const [chat, setChat] = React.useState<{
+    bot: boolean;
+    content: string
+  }[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -23,6 +26,10 @@ export default function Home() {
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      setChat([...chat, {
+        bot: false,
+        content: message
+      }])
       const response = await fetch("/api/", {
         method: "POST",
         headers: {
@@ -34,7 +41,10 @@ export default function Home() {
       const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
       let done = false;
-      setChat((chat) => [...chat, ""]);
+      setChat((chat) => [...chat, {
+        bot: true,
+        content: ""
+      }]);
       while (!done) {
         const { value, done: readerDone } = await reader.read();
         done = readerDone;
@@ -42,7 +52,7 @@ export default function Home() {
           const chunk = decoder.decode(value, { stream: true });
           setChat((chat) => {
             const updatedChat = [...chat];
-            updatedChat[updatedChat.length - 1] += chunk;
+            updatedChat[updatedChat.length - 1].content += chunk;
             return updatedChat;
           });
         }
@@ -63,11 +73,6 @@ export default function Home() {
               onChange={handleChange}
               onSubmit={onSubmit}
             />
-          </div>
-          <div className="flex flex-col gap-y-2">
-            {chat.map((text) => (
-              <span>{text}</span>
-            ))}
           </div>
         </div>
       </main>

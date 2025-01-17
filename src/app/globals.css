@@ -66,6 +66,6 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-zinc-800 text-foreground;
+    @apply bg-neutral-900 text-foreground;
   }
 }

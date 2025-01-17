@@ -179,8 +179,8 @@ export function PlaceholdersAndVanishTextArea({
   return (
     <form
       className={cn(
-        "py-3 sm:py-4 md:py-6 pb-28 sm:pb-32 relative rounded-xl sm:rounded-2xl bg-neutral-900/90 backdrop-blur-sm border border-neutral-800/50 text-base sm:text-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-800/50 focus:border-neutral-800/50 transition-all duration-200 ease-in-out w-full h-full",
-        value && "bg-neutral-900"
+        "py-3 sm:py-4 md:py-6 pb-28 sm:pb-32 relative rounded-xl sm:rounded-2xl bg-black backdrop-blur-sm border border-neutral-800/50 text-base sm:text-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-800/50 focus:border-neutral-800/50 transition-all duration-200 ease-in-out w-full h-full",
+        value && "bg-black/80 border-neutral-700"
       )}
       onSubmit={handleSubmit}
     >
